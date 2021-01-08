@@ -1,5 +1,7 @@
+#include <inttypes.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "time_length.h"
 
@@ -39,12 +41,22 @@ main (int argc, char **argv)
     temp = &temp[strlen (temp) - l + 2];
     ssc  = strstr (temp, "/");
   }
-  size_t tempLen = strlen (temp);
 #ifdef DEBUG
+  size_t tempLen = strlen (temp);
   printf ("temp str size: %ld content: %s\n", tempLen, temp);
 #endif
 
   /* Get time length, number of points, sample rate of this trace */
+  int64_t npts = 0;
+  double sps;
+  int rv = getTimeLength (mseedfile, &npts, &sps);
+  if (rv != 0)
+  {
+    puts ("Something went wrong.");
+    return -1;
+  }
+
+  printf ("%g %" PRId64 " %g\n", (double)npts / sps, npts, sps);
 
   return 0;
 }
