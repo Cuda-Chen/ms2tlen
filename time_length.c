@@ -36,8 +36,8 @@ getTimeLength (const char *mseedfile, int64_t *npts, double *sps)
   tid = mstl->traces;
   while (tid)
   {
-    ms_log (0, "TraceID for %s (%d), segments: %u\n",
-            tid->sid, tid->pubversion, tid->numsegments);
+    /* ms_log (0, "TraceID for %s (%d), segments: %u\n",
+            tid->sid, tid->pubversion, tid->numsegments); */
 
     seg = tid->first;
     while (seg)
